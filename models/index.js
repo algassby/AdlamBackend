@@ -8,17 +8,6 @@ dotenv.config()
 
 const db = {}
 
-// --- DEBUG TEMPORAIRE : à retirer une fois le problème résolu ---
-console.log('=== DEBUG DB ENV ===')
-console.log('DB_HOST:', JSON.stringify(process.env.DB_HOST))
-console.log('DB_PORT:', JSON.stringify(process.env.DB_PORT))
-console.log('DB_USER:', JSON.stringify(process.env.DB_USER))
-console.log('DB_NAME:', JSON.stringify(process.env.DB_NAME))
-console.log('DB_PASSWORD length:', process.env.DB_PASSWORD ? process.env.DB_PASSWORD.length : 'undefined')
-console.log('DB_PASSWORD:', JSON.stringify(process.env.DB_PASSWORD))
-console.log('=====================')
-// --- FIN DEBUG ---
-
 let sequelize
 try {
   // On crée l'instance de Sequelize
