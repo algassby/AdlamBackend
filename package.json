@@ -4,8 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=production node server.js",
-    "dev": "cross-env NODE_ENV=development nodemon server.js",
+    "start": "NODE_ENV=production node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -23,9 +22,5 @@
     "nodemailer": "^7.0.13",
     "resend": "^6.9.1",
     "sequelize": "^6.37.7"
-  },
-  "devDependencies": {
-    "cross-env": "^10.1.0",
-    "nodemon": "^3.1.14"
   }
 }
