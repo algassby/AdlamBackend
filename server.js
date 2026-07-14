@@ -30,7 +30,7 @@ const articlesRoutes = require('./routes/articles');
 const uploadRoutes = require('./routes/upload');
 const userRoutes = require('./routes/userRoutes');
 const commentRoutes = require('./routes/commentRoutes');
-const productRoutes = require('./routes/productRoutes')
+
 // Initialisation de l'application Express
 const app = express();
 const port = process.env.PORT || 5000;
@@ -82,7 +82,6 @@ app.use('/api/articles', articlesRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api', commentRoutes);
-app.use ('/api/products', productRoutes)
 
 // ----------------------------------------------------
 // 4. Connexion, synchronisation DB et démarrage
