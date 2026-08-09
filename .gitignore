@@ -1,0 +1,65 @@
+# ==========================================
+# 1. FICHIERS DE CONFIDENTIALITÉ & ENVIRO (CRITIQUE)
+# ==========================================
+# Ne JAMAIS commiter de clés API, mots de passe DB, etc.
+.env
+.env.*
+!.env.example
+
+# ==========================================
+# 2. DÉPENDANCES NODE
+# ==========================================
+# Le dossier node_modules est lourd et régénéré par npm install
+node_modules/
+jspm_packages/
+
+# Logs npm, yarn, pnpm
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ==========================================
+# 3. FICHIERS D'ÉDITEUR ET D'OS
+# ==========================================
+# Fichiers système Windows / macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Fichiers de configuration des éditeurs (VS Code, WebStorm)
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ==========================================
+# 4. FICHIERS TEMPORAIRES ET BUILDS
+# ==========================================
+# Dossier de build ou distribution si présent
+dist/
+build/
+bin/
+
+# Couverture de tests
+coverage/
+.nyc_output/
+
+# Logs généraux et PID
+logs
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# Cache local
+.cache/
+.eslintcache

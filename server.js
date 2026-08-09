@@ -1,23 +1,22 @@
 // ----------------------------------------------------
 // 1. Chargement Conditionnel des Variables d'Environnement
 // ----------------------------------------------------
+const path = require('path')
+const environment = process.env.NODE_ENV || 'development'
 
-require('dotenv').config()
+// Charge .env.development ou .env.production selon NODE_ENV
+require('dotenv').config({
+  path: path.resolve(process.cwd(), `.env.${environment}`),
+})
 
 console.log('=== VARIABLES ENV ===')
+console.log('NODE_ENV:', process.env.NODE_ENV)
 console.log('DB_HOST:', process.env.DB_HOST)
 console.log('DB_USER:', process.env.DB_USER)
 console.log('DB_NAME:', process.env.DB_NAME)
 console.log('DB_PORT:', process.env.DB_PORT)
 console.log('EMAIL_HOST:', process.env.EMAIL_HOST)
-console.log('DB_NAME:', process.env.DB_NAME)
-console.log('DB_PORT:', process.env.DB_PORT)
-console.log('EMAIL_HOST:', process.env.EMAIL_HOST)
 console.log('=====================')
-
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config()
-}
 
 const express = require('express')
 const cors = require('cors')
@@ -42,7 +41,7 @@ const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:3000',
   'https://akweeyo.com',
-  'https://www.akweeyo.com', // AJOUTE CELLE-CI ABSOLUMENT
+  'https://www.akweeyo.com',
 ]
 
 app.use(
@@ -51,11 +50,10 @@ app.use(
       // Autorise les requêtes sans header Origin (Postman, etc.)
       if (!origin) return callback(null, true)
 
-      // On vérifie si l'origine est dans notre liste
       if (allowedOrigins.indexOf(origin) !== -1) {
         return callback(null, true)
       } else {
-        console.log('Origine bloquée par CORS:', origin) // Utile pour voir l'erreur dans les logs Railway
+        console.log('Origine bloquée par CORS:', origin)
         return callback(new Error('Not allowed by CORS'))
       }
     },
@@ -76,6 +74,13 @@ app.use(
 // ----------------------------------------------------
 app.use(express.json())
 
+// Déclaration explicite des routes
+app.use('/api/auth', authRoutes)
+app.use('/api/articles', articlesRoutes)
+app.use('/api/upload', uploadRoutes)
+app.use('/api/users', userRoutes)
+app.use('/api', commentRoutes)
+
 // ----------------------------------------------------
 // 4. Connexion et synchronisation de la base de données
 // ----------------------------------------------------
@@ -83,16 +88,7 @@ db.sequelize
   .sync({ alter: true })
   .then(() => {
     console.log('✅ Connexion à la base de données réussie et synchronisée.')
-
-    // Routes principales (après connexion à la DB)
-    app.use('/api/auth', authRoutes)
-    app.use('/api/articles', articlesRoutes)
-    app.use('/api/upload', uploadRoutes)
-    app.use('/api/users', userRoutes)
-    app.use('/api', commentRoutes)
-
-    // Lancement du serveur
-    app.listen(port, () => {
+    app.listen(port, '0.0.0.0', () => {
       console.log(`🚀 Serveur en cours d'exécution sur le port ${port}`)
     })
   })
@@ -101,13 +97,6 @@ db.sequelize
       '⚠️ Erreur de synchronisation de la base de données. Le serveur démarre quand même :',
       err.message,
     )
-
-    // Démarre quand même le serveur pour éviter un 502 Railway
-    app.use('/api/auth', authRoutes)
-    app.use('/api/articles', articlesRoutes)
-    app.use('/api/upload', uploadRoutes)
-    app.use('/api/users', userRoutes)
-    app.use('/api', commentRoutes)
 
     app.listen(port, '0.0.0.0', () => {
       console.log(`✅ Serveur en ligne sur le port ${port}`)
