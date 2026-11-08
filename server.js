@@ -52,6 +52,9 @@ const allowedOrigins = [
   'https://www.akweeyo.com'
 ];
 
+// Rendre le dossier public/uploads accessible publiquement en URL
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')))
+
 app.use(
   cors({
     origin: (origin, callback) => {
