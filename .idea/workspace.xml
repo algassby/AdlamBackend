@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7ed18b8a-dec6-48f1-a5c0-f32d87a36a61" name="Changes" comment="fix env.dev et env.prod">
+    <list default="true" id="7ed18b8a-dec6-48f1-a5c0-f32d87a36a61" name="Changes" comment="Fix image upload: using fs in dev.">
+      <change beforePath="$PROJECT_DIR$/.env.development" beforeDir="false" afterPath="$PROJECT_DIR$/.env.development" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/upload.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/upload.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/authMiddleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/authMiddleware.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/auth.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -61,7 +66,23 @@
       <option name="project" value="LOCAL" />
       <updated>1794054120227</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Fix image upload: using fs in dev.">
+      <option name="closed" value="true" />
+      <created>1794100835888</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1794100835888</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Fix image upload: using fs in dev.">
+      <option name="closed" value="true" />
+      <created>1794100909575</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1794100909575</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -78,6 +99,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="up" />
     <MESSAGE value="fix env.dev et env.prod" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix env.dev et env.prod" />
+    <MESSAGE value="Fix image upload: using fs in dev." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix image upload: using fs in dev." />
   </component>
 </project>

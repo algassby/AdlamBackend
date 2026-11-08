@@ -1,45 +1,33 @@
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 
 const auth = (req, res, next) => {
-  // Récupérez l'en-tête Authorization
-  const authHeader = req.header('Authorization')
+  // Récupération du token depuis le cookie HttpOnly (via cookie-parser)
+  const token = req.cookies?.token;
 
-  // Vérifiez si l'en-tête est présent et a le format 'Bearer <token>'
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res
-      .status(401)
-      .json({ message: 'Format de token invalide (attendu: Bearer <token>).' })
+  if (!token) {
+    return res.status(401).json({ message: 'Accès refusé. Aucun token trouvé dans les cookies.' });
   }
-
-  // Extrait le token (enlève "Bearer ")
-  const token = authHeader.split(' ')[1]
 
   try {
-    // 1. Vérifiez le token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET)
+    // 1. Vérification et décodage du token JWT
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // 2. Attachez l'ID utilisateur à req.auth pour le contrôleur (en supposant que le token contient userId)
-    //  req.auth = { userId: decoded.userId } // UTILISEZ req.auth comme attendu par le contrôleur
+    // 2. Attachement des informations utilisateur (id, email, role) à la requête
+    req.user = decoded;
 
-    // Si vous utilisez req.user dans d'autres parties du code, attachez-le aussi
-    req.user = decoded
-
-    next()
+    next();
   } catch (e) {
-    // Cette partie est correcte et renvoie du JSON 401
-    res.status(401).json({ message: "Le token n'est pas valide ou a expiré." })
+    return res.status(401).json({ message: "Le token n'est pas valide ou a expiré." });
   }
-}
+};
 
 const admin = (req, res, next) => {
-  // Le middleware 'admin' fonctionne maintenant car req.user est défini ci-dessus
+  // Vérifie si l'utilisateur est authentifié et possède le rôle admin
   if (req.user && req.user.role === 'admin') {
-    next()
+    next();
   } else {
-    res
-      .status(403)
-      .json({ message: "Accès refusé. Vous n'êtes pas un administrateur." })
+    res.status(403).json({ message: "Accès refusé. Vous n'êtes pas un administrateur." });
   }
-}
+};
 
-module.exports = { auth, admin }
+module.exports = { auth, admin };

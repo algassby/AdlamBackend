@@ -27,6 +27,8 @@ console.log('=====================');
 const express = require('express');
 const cors = require('cors');
 const db = require('./models');
+const cookieParser = require('cookie-parser');
+
 // Importation des routes
 const authRoutes = require('./routes/auth');
 const articlesRoutes = require('./routes/articles');
@@ -84,6 +86,8 @@ app.use(
 // 3. Middlewares standards
 // ----------------------------------------------------
 app.use(express.json());
+// 4. Activer cookie-parser (Indispensable pour lire req.cookies)
+app.use(cookieParser());
 
 // ----------------------------------------------------
 // 4. Connexion et synchronisation de la base de données
@@ -117,6 +121,11 @@ db.sequelize
     app.use('/api/upload', uploadRoutes);
     app.use('/api/users', userRoutes);
     app.use('/api', commentRoutes);
+
+    app.use((req, res) => {
+      console.warn(`404 : ${req.method} ${req.originalUrl}`);
+      res.status(404).json({ message: 'Route introuvable.' });
+    });
 
     app.listen(PORT, '0.0.0.0', () => {
       console.log(`✅ Serveur en ligne sur le port ${PORT} en mode ${env}`);
